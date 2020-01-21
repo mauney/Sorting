@@ -18,15 +18,6 @@ def insertion_sort( arr ):
     return arr
 
 
-# test for insertion_sort()
-import random
-arr = [i for i in range(10)]
-random.shuffle(arr)
-print(f'unordered: {arr}')
-insertion_sort(arr)
-print(f'ordered: {arr}')
-
-
 def selection_sort( arr ):
     # loop through n-1 elements
     for i in range(0, len(arr) - 1):
@@ -63,5 +54,30 @@ def bubble_sort( arr ):
 
 # STRETCH: implement the Count Sort function below
 def count_sort( arr, maximum=-1 ):
+    # if arr is empty, return an empty list
+    if len(arr) == 0:
+        return []
 
-    return arr
+    # set up k + 1 buckets, where k is max value in arr
+    maximum = max(arr)
+    count = [0 for _ in range(maximum + 1)]
+
+    # increment the count for each index for every corresponding value in arr
+    for item in arr:
+        if item < 0:
+            return "Error, negative numbers not allowed in Count Sort"
+        
+        count[item] = count[item] + 1
+
+    # modify the count arr to have a running total of items
+    for i in range(1, len(count)):
+        count[i] = count[i] + count[i - 1]
+        
+    # for each item in arr, use the count arr value at that index to place item,
+    # then decrement the value in count arr by 1
+    arr_sorted = [None for _ in range(len(arr))]
+    for item in arr:
+        arr_sorted[count[item] - 1] = item
+        count[item] = count[item] - 1
+
+    return arr_sorted
