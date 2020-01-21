@@ -27,6 +27,8 @@ class SearchingTests(unittest.TestCase):
 
         self.assertEqual(binary_search_recursive(arr1, -8, 0, len(arr1)-1), 1)
         self.assertEqual(binary_search_recursive(arr1, 0, 0, len(arr1)-1), 6)
+        # add an extra test for a non-empty array not containing the target.
+        self.assertEqual(binary_search_recursive(arr1, 99, 0, len(arr1)-1), -1)
         self.assertEqual(binary_search_recursive(arr2, 6, 0, len(arr1)-1), -1)
         self.assertEqual(binary_search_recursive(arr2, 0, 0, len(arr1)-1), -1)
 
